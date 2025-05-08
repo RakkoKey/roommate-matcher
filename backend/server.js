@@ -67,6 +67,30 @@ app.post('/api/registerUser', async (req, res, next) => {
 
     
 });
+
+app.post('/api/login', async (req, res, next) =>{
+    //incoming: login, password
+    //outgoing: id, firstName, lastName, error
+    var error = '';
+
+    const {username, password} = req.body;
+
+    const db = client.db();
+    const results = await db.collection('Users').find({Login:username,Password:password}).toArray();
+    console.log(username + password);
+    var id = -1;
+    var fn = '';
+    var ln = '';
+
+    //results is an array of results of Users found with matching login and password
+    if(results.length > 0){
+        id = results[0]._id;
+        fn = results[0].FirstName;
+        ln = results[0].LastName;
+    }
+    var ret = {id:id, firstName:fn, lastName:ln, error:''};
+    res.status(200).json(ret);
+});
         
 
 
