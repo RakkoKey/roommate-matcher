@@ -36,6 +36,8 @@ function Login(){
                 const user = {firstName:res.firstName, lastName:res.lastName, id:res.id};
                 localStorage.setItem('user_data', JSON.stringify(user));
 
+                window.location.href = '/home';
+
                 
                 
             }
@@ -61,6 +63,9 @@ function Login(){
             <input name='password' placeholder='Enter Password' onChange={changeLogin}></input>
 
             <button type="submit" onClick={doLogin}  >Login</button>
+            <button onClick={(e) => {
+                e.preventDefault();
+                window.location.href = "/register"}}>Register</button>
 
         </form>
     </>)
