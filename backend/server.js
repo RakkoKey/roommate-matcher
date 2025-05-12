@@ -19,10 +19,10 @@ app.use(bodyParser.json());
 
 app.post('/api/registerUser', async (req, res, next) => {
     // Incoming: firstName, lastName, userName, password, email
-    const { firstName, lastName, userName, password, email } = req.body;
+    const { firstName, lastName, username, password, email } = req.body;
 
     // Validate input: Ensure all fields are provided
-    if (!firstName || !lastName || !userName || !password || !email) {
+    if (!firstName || !lastName || !username || !password || !email) {
         return res.status(400).json({ error: 'All fields, including email, are required' });
     }
 
@@ -35,7 +35,7 @@ app.post('/api/registerUser', async (req, res, next) => {
     const newUser = {
         FirstName: firstName,
         LastName: lastName,
-        Login: userName,
+        Login: username,
         Password: password,
         Email: email
     };
@@ -44,7 +44,7 @@ app.post('/api/registerUser', async (req, res, next) => {
         const db = client.db();
 
         // Check for duplicate username
-        const existingUser = await db.collection('Users').findOne({ Login: userName });
+        const existingUser = await db.collection('Users').findOne({ Login: username });
         if (existingUser) {
             return res.status(400).json({ error: 'Username already exists' });
         }
