@@ -65,7 +65,7 @@ function Login(){
             <button type="submit" onClick={doLogin}  >Login</button>
             <button onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "/register"}}>Register</button>
+                window.location.href = "/register"}}>Register</button>{/* didn't feel like making a separate function*/}
 
         </form>
     </>)

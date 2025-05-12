@@ -1,5 +1,6 @@
 
 import {useState, useEffect} from 'react'
+import LOCALHOST_PORT from '../../config'
 function Register(){
 
     const [newUser, setUser] = useState({
@@ -9,12 +10,36 @@ function Register(){
         lastName: '',
         email: ''
     })
-
+    const [message, setMessage] = useState('');
     function changeUser(e){
         setUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         })) 
+    }
+
+    async function registerUser(e){
+        e.preventDefault();
+        try{
+            const response = await fetch(LOCALHOST_PORT + '/api/registerUser', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newUser),
+            })
+
+            const result = await response.json();
+            if (response.ok) {
+                setMessage('Account created successfully!');
+                setTimeout(() => {
+                    window.location.href = '/'; // Redirect to the login page or home
+                }, 2000);
+            } else {
+                alert(`Error: ${result.error}`);
+            }
+        }catch(error){
+
+        }
+
     }
 
 
@@ -69,7 +94,7 @@ function Register(){
                 
                 onChange={changeUser}
             />
-            <button type="submit" id="createAccountButton" className="button">
+            <button type="submit" id="createAccountButton"  onClick={registerUser} className="button">
                 Create Account
             </button>
             {/* <button
