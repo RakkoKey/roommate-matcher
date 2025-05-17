@@ -33,7 +33,8 @@ function Login(){
                 alert('User/Password combination incorrect');
             }
             else{
-                const user = {firstName:res.firstName, lastName:res.lastName, id:res.id};
+                console.log(res);
+                const user = {firstName:res.firstName, lastName:res.lastName, username: res.username, id:res.id};
                 localStorage.setItem('user_data', JSON.stringify(user));
 
                 window.location.href = '/home';
