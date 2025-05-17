@@ -81,14 +81,16 @@ app.post('/api/login', async (req, res, next) =>{
     var id = -1;
     var fn = '';
     var ln = '';
-
+    var user = '';
+    console.log(results);
     //results is an array of results of Users found with matching login and password
     if(results.length > 0){
         id = results[0]._id;
         fn = results[0].FirstName;
         ln = results[0].LastName;
+        
     }
-    var ret = {id:id, firstName:fn, lastName:ln, error:''};
+    var ret = {id:id, firstName:fn, lastName:ln,username: username,error:''};
     res.status(200).json(ret);
 });
         
